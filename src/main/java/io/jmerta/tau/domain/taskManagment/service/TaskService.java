@@ -8,5 +8,10 @@ public class TaskService {
 
     public void createNewTask(Task task){
 
+
+    }
+
+    public void deleteTask(Long id){
+
     }
 }
