@@ -1,6 +1,6 @@
 package io.jmerta.tau.config;
 
-import io.jmerta.tau.domain.authentication.AuthenticationFilter;
+import io.jmerta.tau.domain.accountManagment.util.AuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

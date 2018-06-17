@@ -1,4 +1,4 @@
-package io.jmerta.tau.domain.authentication;
+package io.jmerta.tau.domain.accountManagment.util;
 
 
 import org.springframework.security.core.Authentication;
@@ -14,12 +14,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private static final Logger LOGGER = Logger.getLogger( AuthenticationFilter.class.getName() );
 
     private AuthManager authManager() {
         return (AuthManager) getAuthenticationManager();
@@ -69,7 +68,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             authManager().persistSession(authentication, token);
             chain.doFilter(req, res);
         } catch (AuthenticationException ex) {
-            Logger.logMsg(ex);
+//            LOGGER.log(Level.WARNING,ex.toString());
         }
     }
 

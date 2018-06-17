@@ -1,0 +1,7 @@
+security:
+        token:
+            name: tau-token
+
+application:
+          db:
+            schema: public

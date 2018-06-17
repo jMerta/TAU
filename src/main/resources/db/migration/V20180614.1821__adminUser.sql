@@ -1,0 +1,1 @@
+insert into account (username, password, passsword_salt, role_id) values ('admin','password','',(select id from role where upper(code) = 'ADMIN'));
