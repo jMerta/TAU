@@ -5,7 +5,8 @@ CREATE TABLE public.task
   name character varying(25),
   account_id numeric,
   contents text,
-  comment character varying(250)
+  comment character varying(250),
+  category_id numeric
 );
 
 
@@ -16,7 +17,5 @@ CREATE TABLE public.category
   name character varying(25),
   content text,
   comment character varying(250),
-  is_done boolean,
-  category_id numeric,
   account_id numeric
 );

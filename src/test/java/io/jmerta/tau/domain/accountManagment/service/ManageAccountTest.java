@@ -48,7 +48,6 @@ public class ManageAccountTest {
     @Test
     public void createNewuser(){
         Account account = new Account("Nowy user", "haslo1234",null,null);
-
         manageAccount.createNewAccount(account);
 
         Account accountFromDb = manageAccount.loadUserByUsername("Nowy user");
