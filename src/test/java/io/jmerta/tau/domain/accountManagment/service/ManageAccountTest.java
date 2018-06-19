@@ -21,24 +21,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 @MybatisTest(excludeAutoConfiguration = {AutoConfigureTestDatabase.class, SpringBootTest.class})
 @SpringBootTest(classes = {TauApplication.class, DataConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(AccountService.class)
-public class AccountServiceTest {
+@Import(ManageAccount.class)
+public class ManageAccountTest {
 
 
     @Autowired
-    AccountService accountService;
+    ManageAccount manageAccount;
 
 
     @Test
     public void getUserByUsername(){
-        Account account = accountService.loadUserByUsername("Admin");
+        Account account = manageAccount.loadUserByUsername("Admin");
         assertThat(account).isNotNull();
         assertThat(account.getUsername()).isEqualToIgnoringCase("Admin");
     }
 
     @Test
     public void getAllUsers(){
-        List<Account> accountList = accountService.getAllAccounts();
+        List<Account> accountList = manageAccount.getAllAccounts();
 
         System.out.println(accountList);
         assertThat(accountList).isNotEmpty();
@@ -49,9 +49,9 @@ public class AccountServiceTest {
     public void createNewuser(){
         Account account = new Account("Nowy user", "haslo1234",null,null);
 
-        accountService.createNewAccount(account);
+        manageAccount.createNewAccount(account);
 
-        Account accountFromDb = accountService.loadUserByUsername("Nowy user");
+        Account accountFromDb = manageAccount.loadUserByUsername("Nowy user");
         System.out.println(account);
         System.out.println(accountFromDb);
         assertThat(accountFromDb).isNotNull();
@@ -63,17 +63,17 @@ public class AccountServiceTest {
     public void testSessionMechanism(){
         Account account = new Account("User testowy","password",null,null);
 
-        Account accountFromDb = accountService.createNewAccount(account);
-        Account accountFromDbOnUsername = accountService.loadUserByUsername("User testowy");
+        Account accountFromDb = manageAccount.createNewAccount(account);
+        Account accountFromDbOnUsername = manageAccount.loadUserByUsername("User testowy");
 
         assertThat(accountFromDb).isNotNull();
         assertThat(accountFromDbOnUsername).isNotNull();
 
         String uuid = UUID.randomUUID().toString();
-        accountService.saveSession(accountFromDbOnUsername, uuid);
+        manageAccount.saveSession(accountFromDbOnUsername, uuid);
 
         System.out.println(accountFromDb);
-        Account accountFromSession = accountService.loadUserByToken(uuid);
+        Account accountFromSession = manageAccount.loadUserByToken(uuid);
 
         assertThat(accountFromSession).isNotNull();
         assertThat(accountFromSession.getUsername()).isEqualToIgnoringCase(accountFromDb.getUsername());

@@ -2,8 +2,6 @@ package io.jmerta.tau.domain.accountManagment.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -19,7 +17,7 @@ public class Account implements UserDetails {
     private String username;
     private String password;
     private String passwordSalt;
-    private List<Authority> grantedAuthorities;
+    private List<Role> grantedAuthorities;
     private Session session;
     private Long roleId;
 

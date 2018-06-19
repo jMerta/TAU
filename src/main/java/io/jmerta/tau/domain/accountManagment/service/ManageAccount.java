@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AccountService implements UserDetailsService {
+public class ManageAccount implements UserDetailsService {
 
     private AccountRepository accountRepository;
     private SessionRepository sessionRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, SessionRepository sessionRepository) {
+    public ManageAccount(AccountRepository accountRepository, SessionRepository sessionRepository) {
         this.accountRepository = accountRepository;
         this.sessionRepository = sessionRepository;
     }

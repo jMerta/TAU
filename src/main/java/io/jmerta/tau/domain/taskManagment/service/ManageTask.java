@@ -4,7 +4,7 @@ import io.jmerta.tau.domain.taskManagment.entity.Task;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaskService {
+public class ManageTask {
 
     public void createNewTask(Task task){
 

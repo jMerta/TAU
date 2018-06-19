@@ -3,7 +3,7 @@ package io.jmerta.tau.domain.accountManagment.transport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
-import io.jmerta.tau.domain.accountManagment.service.AccountService;
+import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import io.jmerta.tau.domain.accountManagment.util.AuthManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +33,7 @@ public class AccountManagmentControllerTests {
     MockMvc mockMvc;
 
     @MockBean
-    AccountService accountService;
+    ManageAccount manageAccount;
 
     @MockBean
     AuthManager authManager;
@@ -48,7 +48,7 @@ public class AccountManagmentControllerTests {
         Account account = new Account("account");
 
         List<Account> allAccounts = Arrays.asList(account);
-        given(accountService.getAllAccounts()).willReturn(allAccounts);
+        given(manageAccount.getAllAccounts()).willReturn(allAccounts);
         mockMvc.perform(get("/api/account/allUsers")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -60,7 +60,7 @@ public class AccountManagmentControllerTests {
         ObjectMapper mapper = new ObjectMapper();
         Account account = new Account("nowy user");
 
-        given(accountService.createNewAccount(account)).willReturn(account);
+        given(manageAccount.createNewAccount(account)).willReturn(account);
         String accountJson = mapper.writeValueAsString(account);
         System.out.println(accountJson);
         mockMvc.perform(post("/api/account/register").contentType(MediaType.APPLICATION_JSON).content(accountJson))

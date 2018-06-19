@@ -2,7 +2,7 @@ package io.jmerta.tau.domain.accountManagment.util;
 
 import io.jmerta.tau.domain.accountManagment.entity.Account;
 import io.jmerta.tau.domain.accountManagment.entity.Session;
-import io.jmerta.tau.domain.accountManagment.service.AccountService;
+import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,11 +21,11 @@ public class AuthManager implements AuthenticationManager {
     @Value("${security.token.name}")
     public String tokenName;
 
-    private AccountService accountService;
+    private ManageAccount manageAccount;
 
     @Autowired
-    public AuthManager(AccountService accountService) {
-        this.accountService = accountService;
+    public AuthManager(ManageAccount manageAccount) {
+        this.manageAccount = manageAccount;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AuthManager implements AuthenticationManager {
     }
 
     public Authentication authentication(Account accountFront){
-        Account accountBackend = accountService.loadUserByUsername(accountFront.getUsername());
+        Account accountBackend = manageAccount.loadUserByUsername(accountFront.getUsername());
 
 
         if (accountBackend.getPassword().equalsIgnoreCase(accountFront.getPassword())){
@@ -50,7 +50,7 @@ public class AuthManager implements AuthenticationManager {
 
 
     public Authentication authenticate(String token) {
-        Account account = accountService.loadUserByToken(token);
+        Account account = manageAccount.loadUserByToken(token);
         if (null == account) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -67,7 +67,7 @@ public class AuthManager implements AuthenticationManager {
         Session session = new Session();
         account.setSession(session);
         account.getSession().setToken(token);
-        accountService.saveSession(account,token);
+        manageAccount.saveSession(account,token);
     }
 
 }

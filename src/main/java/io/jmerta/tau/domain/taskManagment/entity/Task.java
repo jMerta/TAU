@@ -11,5 +11,5 @@ public class Task {
     private boolean isDone;
     private String name;
     private String content;
-    private List<String> comments;
+    private String comment;
 }

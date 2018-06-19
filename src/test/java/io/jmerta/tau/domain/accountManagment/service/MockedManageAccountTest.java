@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 @MybatisTest(excludeAutoConfiguration = {AutoConfigureTestDatabase.class, SpringBootTest.class})
 @SpringBootTest(classes = {TauApplication.class, DataConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class MockedAccountServiceTest {
+public class MockedManageAccountTest {
 
     @Mock
     AccountRepository accountRepository;
@@ -34,16 +34,16 @@ public class MockedAccountServiceTest {
     SessionRepository sessionRepository;
 
     @InjectMocks
-    AccountService accountService;
+    ManageAccount manageAccount;
 
-    public MockedAccountServiceTest() {
+    public MockedManageAccountTest() {
         MockitoAnnotations.initMocks(this);
     }
     @Test
     public void getUserByUsername(){
         when(accountRepository.getAccountByUsername("Admin")).thenReturn(new Account("Admin","password",null,1l));
 
-        Account account = accountService.loadUserByUsername("Admin");
+        Account account = manageAccount.loadUserByUsername("Admin");
         assertThat(account).isNotNull();
         assertThat(account.getUsername()).isEqualToIgnoringCase("Admin");
     }
@@ -58,7 +58,7 @@ public class MockedAccountServiceTest {
 
         when(accountRepository.getAllAccounts()).thenReturn(accountList);
 
-        List<Account> accounts = accountService.getAllAccounts();
+        List<Account> accounts = manageAccount.getAllAccounts();
         assertThat(accounts).isNotEmpty();
         assertThat(accounts).hasSize(2);
     }
