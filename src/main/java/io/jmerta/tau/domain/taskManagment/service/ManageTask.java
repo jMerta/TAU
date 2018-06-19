@@ -3,6 +3,7 @@ package io.jmerta.tau.domain.taskManagment.service;
 import io.jmerta.tau.domain.taskManagment.entity.Task;
 import io.jmerta.tau.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ManageTask {
     private ManageCategory manageCategory;
 
     @Autowired
-    public ManageTask(TaskRepository taskRepository, ManageCategory manageCategory) {
+    public ManageTask(TaskRepository taskRepository,@Lazy ManageCategory manageCategory) {
         this.taskRepository = taskRepository;
         this.manageCategory = manageCategory;
     }
