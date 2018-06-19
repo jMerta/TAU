@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @MybatisTest(excludeAutoConfiguration = {AutoConfigureTestDatabase.class, SpringBootTest.class})
 @SpringBootTest(classes = {TauApplication.class, DataConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class RoleRepository {
+public class RoleRepositoryTests {
 
 
     @Autowired
