@@ -9,6 +9,6 @@ public class Category {
     private String name;
     private long accountId;
     private String content;
-    private String comments;
+    private String comment;
 
 }

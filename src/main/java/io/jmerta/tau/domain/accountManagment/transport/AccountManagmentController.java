@@ -3,7 +3,7 @@ package io.jmerta.tau.domain.accountManagment.transport;
 
 import io.jmerta.tau.domain.accountManagment.util.AuthManager;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
-import io.jmerta.tau.domain.accountManagment.service.AccountService;
+import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +24,19 @@ import java.util.UUID;
 public class AccountManagmentController {
 
 
-    private AccountService accountService;
+    private ManageAccount manageAccount;
     private AuthManager authManager;
 
 
     @Autowired
-    public AccountManagmentController(AccountService accountService, AuthManager authManager) {
-        this.accountService = accountService;
+    public AccountManagmentController(ManageAccount manageAccount, AuthManager authManager) {
+        this.manageAccount = manageAccount;
         this.authManager = authManager;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
-        Account frontAccount = accountService.createNewAccount(account);
+        Account frontAccount = manageAccount.createNewAccount(account);
         return new ResponseEntity<>(frontAccount, HttpStatus.OK);
     }
 
@@ -60,6 +60,7 @@ public class AccountManagmentController {
         response.addCookie(cookie);
 
 
+        manageAccount.saveSession(account,token);
 
         account.setPassword(null);
         account.setPasswordSalt(null);
@@ -69,7 +70,7 @@ public class AccountManagmentController {
 
     @RequestMapping(value ="/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAllAccounts(){
-        List<Account> accountList = accountService.getAllAccounts();
+        List<Account> accountList = manageAccount.getAllAccounts();
 
         return new ResponseEntity<>(accountList,HttpStatus.OK);
     }
