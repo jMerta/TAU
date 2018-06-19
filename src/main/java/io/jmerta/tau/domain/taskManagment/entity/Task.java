@@ -12,4 +12,6 @@ public class Task {
     private String name;
     private String content;
     private String comment;
+    private long categoryId;
+    private long acountId;
 }
