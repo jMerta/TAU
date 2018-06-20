@@ -36,7 +36,10 @@ public class AccountManagmentController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
+        if (account.getUsername() == null || account.getUsername().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
+        if (account.getPassword() == null || account.getPassword().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
         Account frontAccount = accountService.createNewAccount(account);
+
         return new ResponseEntity<>(frontAccount, HttpStatus.OK);
     }
 
