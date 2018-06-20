@@ -1,9 +1,9 @@
 package io.jmerta.tau.domain.accountManagment.transport;
 
 
+import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import io.jmerta.tau.domain.accountManagment.util.AuthManager;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
-import io.jmerta.tau.domain.accountManagment.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +24,13 @@ import java.util.UUID;
 public class AccountManagmentController {
 
 
-    private AccountService accountService;
+    private ManageAccount manageAccount;
     private AuthManager authManager;
 
 
     @Autowired
-    public AccountManagmentController(AccountService accountService, AuthManager authManager) {
-        this.accountService = accountService;
+    public AccountManagmentController(ManageAccount accountService, AuthManager authManager) {
+        this.manageAccount = accountService;
         this.authManager = authManager;
     }
 
@@ -38,7 +38,7 @@ public class AccountManagmentController {
     public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
         if (account.getUsername() == null || account.getUsername().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
         if (account.getPassword() == null || account.getPassword().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
-        Account frontAccount = accountService.createNewAccount(account);
+        Account frontAccount = manageAccount.createNewAccount(account);
 
         return new ResponseEntity<>(frontAccount, HttpStatus.OK);
     }
@@ -72,7 +72,7 @@ public class AccountManagmentController {
 
     @RequestMapping(value ="/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAllAccounts(){
-        List<Account> accountList = accountService.getAllAccounts();
+        List<Account> accountList = manageAccount.getAllAccounts();
 
         return new ResponseEntity<>(accountList,HttpStatus.OK);
     }
