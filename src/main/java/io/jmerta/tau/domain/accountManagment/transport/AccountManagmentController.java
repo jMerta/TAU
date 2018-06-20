@@ -1,9 +1,9 @@
 package io.jmerta.tau.domain.accountManagment.transport;
 
 
+import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import io.jmerta.tau.domain.accountManagment.util.AuthManager;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
-import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +29,17 @@ public class AccountManagmentController {
 
 
     @Autowired
-    public AccountManagmentController(ManageAccount manageAccount, AuthManager authManager) {
-        this.manageAccount = manageAccount;
+    public AccountManagmentController(ManageAccount accountService, AuthManager authManager) {
+        this.manageAccount = accountService;
         this.authManager = authManager;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
+        if (account.getUsername() == null || account.getUsername().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
+        if (account.getPassword() == null || account.getPassword().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
         Account frontAccount = manageAccount.createNewAccount(account);
+
         return new ResponseEntity<>(frontAccount, HttpStatus.OK);
     }
 
@@ -60,7 +63,6 @@ public class AccountManagmentController {
         response.addCookie(cookie);
 
 
-        manageAccount.saveSession(account,token);
 
         account.setPassword(null);
         account.setPasswordSalt(null);
