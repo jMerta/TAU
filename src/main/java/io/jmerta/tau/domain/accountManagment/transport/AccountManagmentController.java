@@ -3,7 +3,7 @@ package io.jmerta.tau.domain.accountManagment.transport;
 
 import io.jmerta.tau.domain.accountManagment.util.AuthManager;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
-import io.jmerta.tau.domain.accountManagment.service.ManageAccount;
+import io.jmerta.tau.domain.accountManagment.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +24,22 @@ import java.util.UUID;
 public class AccountManagmentController {
 
 
-    private ManageAccount manageAccount;
+    private AccountService accountService;
     private AuthManager authManager;
 
 
     @Autowired
-    public AccountManagmentController(ManageAccount manageAccount, AuthManager authManager) {
-        this.manageAccount = manageAccount;
+    public AccountManagmentController(AccountService accountService, AuthManager authManager) {
+        this.accountService = accountService;
         this.authManager = authManager;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Account> createNewAccount(@RequestBody Account account){
-        Account frontAccount = manageAccount.createNewAccount(account);
+        if (account.getUsername() == null || account.getUsername().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
+        if (account.getPassword() == null || account.getPassword().trim().equalsIgnoreCase("")) return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
+        Account frontAccount = accountService.createNewAccount(account);
+
         return new ResponseEntity<>(frontAccount, HttpStatus.OK);
     }
 
@@ -60,7 +63,6 @@ public class AccountManagmentController {
         response.addCookie(cookie);
 
 
-        manageAccount.saveSession(account,token);
 
         account.setPassword(null);
         account.setPasswordSalt(null);
@@ -70,7 +72,7 @@ public class AccountManagmentController {
 
     @RequestMapping(value ="/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAllAccounts(){
-        List<Account> accountList = manageAccount.getAllAccounts();
+        List<Account> accountList = accountService.getAllAccounts();
 
         return new ResponseEntity<>(accountList,HttpStatus.OK);
     }
