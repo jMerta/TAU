@@ -39,7 +39,7 @@ public class AuthManager implements AuthenticationManager {
         Account accountBackend = manageAccount.loadUserByUsername(accountFront.getUsername());
 
 
-        if (accountBackend.getPassword().equalsIgnoreCase(accountFront.getPassword())){
+        if (accountBackend.checkPassword(accountFront.getPassword())){
             Authentication authentication = new UsernamePasswordAuthenticationToken(accountBackend,null,accountBackend.getAuthorities());
             return this.authenticate(authentication);
         }

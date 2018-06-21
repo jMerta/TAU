@@ -28,6 +28,7 @@ public interface AccountRepository {
     Account getAccountByToken(@Param("token") String token);
 
     @Insert("Insert into account (username, password, passsword_salt, role_id) values (#{account.username:VARCHAR}, #{account.password:VARCHAR}, #{account.passwordSalt:VARCHAR}, (select id from public.role where upper(code) = 'USER'))")
+    @Options(useGeneratedKeys = true,keyProperty = "account.id",keyColumn = "id")
     Long createAccount(@Param("account") Account account);
 
 

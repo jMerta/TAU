@@ -27,8 +27,6 @@ public class ManageAccount implements UserDetailsService {
     @Override
     public Account loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account =  accountRepository.getAccountByUsername(username);
-        account.setPassword(null);
-        account.setPasswordSalt(null);
         return account;
     }
 
@@ -40,6 +38,7 @@ public class ManageAccount implements UserDetailsService {
     public Account createNewAccount(Account account) {
         account.encryptPassword(account.getPassword());
         accountRepository.createAccount(account);
+        long i = account.getId();
         account.setPassword(null);
         account.setPasswordSalt(null);
 
