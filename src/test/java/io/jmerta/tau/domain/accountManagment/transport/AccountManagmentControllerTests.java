@@ -60,6 +60,7 @@ public class AccountManagmentControllerTests {
         ObjectMapper mapper = new ObjectMapper();
         Account account = new Account("nowy user");
 
+        account.setPassword("password");
         given(manageAccount.createNewAccount(account)).willReturn(account);
         String accountJson = mapper.writeValueAsString(account);
         System.out.println(accountJson);
