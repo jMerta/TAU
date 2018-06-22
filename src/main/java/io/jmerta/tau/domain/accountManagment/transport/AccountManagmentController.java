@@ -65,6 +65,7 @@ public class AccountManagmentController {
         cookie.setPath("/");
         response.addCookie(cookie);
 
+        authManager.persistSession(authentication,token);
 
 
         account.setPassword(null);
