@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface AccountRepository {
 
-    @Select("Select * from public.account where upper(username) = upper(#{username:VARCHAR})")
+    @Select("Select * from public.account where upper(username) = upper(#{username:VARCHAR}) limit 1")
     @Results(id = "accountResult", value =
             {
                     @Result(property = "id", column = "id"),
@@ -23,7 +23,7 @@ public interface AccountRepository {
     List<Account> getAllAccounts();
 
 
-    @Select("Select * from public.account a join public.account_session b on a.id = b.account_id  where a.id = (select account_id from public.account_session b  where b.token = #{token:VARCHAR})")
+    @Select("Select * from public.account a join public.account_session b on a.id = b.account_id  where a.id = (select account_id from public.account_session b  where b.token = #{token:VARCHAR}) limit 1")
     @ResultMap("accountResult")
     Account getAccountByToken(@Param("token") String token);
 
@@ -32,7 +32,7 @@ public interface AccountRepository {
     Long createAccount(@Param("account") Account account);
 
 
-    @Select("Select * from public.account where id = #{id}")
+    @Select("Select * from public.account where id = #{id} limit 1")
     @ResultMap("accountResult")
     Account getAccount(@Param("id") long id);
 

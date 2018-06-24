@@ -52,8 +52,13 @@ public class AccountManagmentController {
         if (frontAccount.getPassword() == null || frontAccount.getPassword().equalsIgnoreCase("")){
             throw new BadCredentialsException("password cannot be empty");
         }
-        Authentication authentication = authManager.authentication(frontAccount);
+        Authentication authentication = null;
+        try {
+            authentication = authManager.authentication(frontAccount);
 
+        } catch (Exception ex){
+            return new ResponseEntity<>((Account) null, HttpStatus.BAD_REQUEST);
+        }
         Account account = (Account) authentication.getPrincipal();
 
 
