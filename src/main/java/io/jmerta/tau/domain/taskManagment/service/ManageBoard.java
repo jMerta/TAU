@@ -45,4 +45,12 @@ public class ManageBoard {
             boardRepository.deleteBoard(id);
         }
     }
+
+    public void updateBoard(Board board) {
+        Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (board.getAccountId() == account.getId()) {
+            boardRepository.updateBoard(board);
+        }
+    }
 }
