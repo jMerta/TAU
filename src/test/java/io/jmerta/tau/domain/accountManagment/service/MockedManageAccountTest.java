@@ -5,6 +5,7 @@ import io.jmerta.tau.config.DataConfig;
 import io.jmerta.tau.domain.accountManagment.entity.Account;
 import io.jmerta.tau.repository.AccountRepository;
 import io.jmerta.tau.repository.SessionRepository;
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 @MybatisTest(excludeAutoConfiguration = {AutoConfigureTestDatabase.class, SpringBootTest.class})
 @SpringBootTest(classes = {TauApplication.class, DataConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@FlywayTest
 public class MockedManageAccountTest {
 
     @Mock

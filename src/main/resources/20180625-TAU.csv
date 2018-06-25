@@ -1,0 +1,11 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,Latency,IdleTime,Connect
+1529914683294,121,HTTP Request,200,,Thread Group 1-1,text,false,"The operation lasted too long: It took 121 milliseconds, but should not have lasted longer than 25 milliseconds.",552,138,1,1,120,0,84
+1529914683419,13,HTTP Request,200,,Thread Group 1-1,text,true,,552,138,1,1,13,0,0
+1529914683432,13,HTTP Request,200,,Thread Group 1-1,text,true,,552,138,1,1,13,0,0
+1529914683446,13,HTTP Request,200,,Thread Group 1-1,text,true,,552,138,1,1,13,0,0
+1529914683459,14,HTTP Request,200,,Thread Group 1-1,text,true,,552,138,1,1,14,0,0
+1529914683696,23,HTTP Request,200,,Thread Group 1-2,text,true,,552,138,1,1,23,0,1
+1529914683720,11,HTTP Request,200,,Thread Group 1-2,text,true,,552,138,1,1,11,0,0
+1529914683731,11,HTTP Request,200,,Thread Group 1-2,text,true,,552,138,1,1,11,0,0
+1529914683744,11,HTTP Request,200,,Thread Group 1-2,text,true,,552,138,1,1,11,0,0
+1529914683755,12,HTTP Request,200,,Thread Group 1-2,text,true,,552,138,1,1,12,0,0
